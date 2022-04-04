@@ -76,11 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: const Center(
-          child: Text(
-        'ESTE ES UNA APP DE LOS INCONCIENTES ',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      )),
+      body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+              const Text( 'ESTE ES UNA APP DE LOS INCONCIENTES ',  style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              FloatingActionButton(onPressed: () {}, backgroundColor: Colors.red,)
+            ],
+          )),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
