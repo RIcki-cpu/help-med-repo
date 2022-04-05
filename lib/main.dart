@@ -78,13 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
-              const Text( 'ESTE ES UNA APP DE LOS INCONCIENTES ',  style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              FloatingActionButton(onPressed: () {}, backgroundColor: Colors.red,)
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'ESTE ES UNA APP DE LOS Cracks ',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+          FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.red,
+          )
+        ],
+      )),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
