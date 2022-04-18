@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/user_model.dart';
-import 'package:flutter_application_1/screens/home_screen.dart';
+import 'package:help_med/model/user_model.dart';
+import 'package:help_med/screens/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
