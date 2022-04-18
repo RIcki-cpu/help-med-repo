@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "855973638082",
+    "project_id": "emailpasswordauth-helpmed",
+    "storage_bucket": "emailpasswordauth-helpmed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855973638082:android:f5da348b76116df5a2f05b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855973638082-alb5bt0aadachrim5a1dsbclkjsclso6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_1",
+            "certificate_hash": "262ff38333d399cfd8eaa1d4a4d4cf96588a2e44"
+          }
+        },
+        {
+          "client_id": "855973638082-6tdvffs1tnpfapn29n2smf6vq367q6nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHm_juHcLcjzn8HA7xf1sa9uNS__eLnjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855973638082-6tdvffs1tnpfapn29n2smf6vq367q6nt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

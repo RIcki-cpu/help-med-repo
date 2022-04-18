@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
+<<<<<<< HEAD
 project(help_med LANGUAGES CXX)
 
 set(BINARY_NAME "help_med")
+=======
+project(flutter_application_1 LANGUAGES CXX)
+
+set(BINARY_NAME "flutter_application_1")
+>>>>>>> Sergibranch
 
 cmake_policy(SET CMP0063 NEW)
 

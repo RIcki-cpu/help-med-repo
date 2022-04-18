@@ -8,7 +8,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+<<<<<<< HEAD
 import 'package:help_med/main.dart';
+=======
+import 'package:flutter_application_1/main.dart';
+>>>>>>> Sergibranch
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
