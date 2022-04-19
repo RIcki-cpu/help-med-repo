@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //Navigator.pushReplacement(context,
             //MaterialPageRoute(builder: ((context) => HomeScreen())));
           },
-          child: Text("Login",
+          child: const Text("Login",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 24,

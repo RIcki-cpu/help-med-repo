@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:help_med/screens/login_screen.dart';
+import 'package:help_med/screens/medicine_screen.dart';
+import 'package:help_med/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:help_med/themes/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +17,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Email y contraseña Login',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
+      theme: AppTheme.darkTheme,
       home: LoginScreen(),
+      initialRoute: 'home',
+      routes: {
+        'home': (BuildContext context) => HomeScreen(),
+        'medicamentos': (BuildContext context) => const MedicineScreen(),
+        // 'alergias': (BuildContext context) => const ListView2Screen(),
+        // 'signin': (BuildContext context) => const CardScreen(),
+        // 'login': (BuildContext context) => const AlertScreen(),
+      },
     );
   }
 }

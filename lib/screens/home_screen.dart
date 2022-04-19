@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:help_med/model/user_model.dart';
-import 'package:help_med/screens/login_screen.dart';
+import 'package:help_med/screens/screens.dart';
+import 'package:help_med/widgets/customcard1_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -51,33 +52,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                Text(
+                const Text(
                   "Bienvenido de vuelta",
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text("${loggedInUser.firstName}${loggedInUser.secondName}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Montserrat',
                     )),
                 Text("${loggedInUser.email}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Montserrat',
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
+                const CustomCard1(),
                 ActionChip(
-                    label: Text("Logout"),
+                    label: const Text("Logout"),
                     onPressed: () {
                       logout(context);
                     }),
