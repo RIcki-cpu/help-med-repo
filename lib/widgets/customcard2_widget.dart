@@ -12,14 +12,16 @@ class CustomCard2 extends StatelessWidget {
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             medName,
             style: const TextStyle(fontSize: 20, color: AppTheme.primary),
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'edit_med');
+              },
               icon: const Icon(
                 Icons.edit,
                 color: AppTheme.primary,

@@ -11,14 +11,16 @@ class MedicineScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Medicamentos'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          CustomCard2(medName: 'ibuprofreno'),
-          CustomCard2(medName: 'aspirina'),
-          CustomCard2(medName: 'lsd'),
-          CustomCard2(medName: 'consilbina'),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Column(
+          children: const [
+            CustomCard2(medName: 'ibuprofreno'),
+            CustomCard2(medName: 'aspirina'),
+            CustomCard2(medName: 'lsd'),
+            CustomCard2(medName: 'consilbina'),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

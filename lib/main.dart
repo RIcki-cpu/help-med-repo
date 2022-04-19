@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': (BuildContext context) => HomeScreen(),
         'medicamentos': (BuildContext context) => const MedicineScreen(),
+        'edit_med': (BuildContext context) => const EditMedicineScreen(),
         // 'alergias': (BuildContext context) => const ListView2Screen(),
         // 'signin': (BuildContext context) => const CardScreen(),
         // 'login': (BuildContext context) => const AlertScreen(),

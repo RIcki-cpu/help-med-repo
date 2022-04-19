@@ -21,6 +21,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
       // color primario
       primaryColor: primary,
+      textTheme: TextTheme(bodySmall: TextStyle(color: Colors.white)),
       //appBarTheme
       appBarTheme: const AppBarTheme(
         color: primary,
