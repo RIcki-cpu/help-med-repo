@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:help_med/themes/app_theme.dart';
 import 'package:help_med/widgets/widgets.dart';
 
-class MedicineScreen extends StatelessWidget {
-  const MedicineScreen({Key? key}) : super(key: key);
+class MedicationScreen extends StatelessWidget {
+  const MedicationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,13 @@ class MedicineScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'edit_med');
+        },
+        //todo Icon border like a button
         child: const Icon(Icons.add),
         tooltip: 'Añade un nuevo medicamento',
-        backgroundColor: AppTheme.secondary,
+        backgroundColor: AppTheme.primary,
       ),
     );
   }

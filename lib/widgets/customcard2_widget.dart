@@ -16,7 +16,7 @@ class CustomCard2 extends StatelessWidget {
         children: [
           Text(
             medName,
-            style: const TextStyle(fontSize: 20, color: AppTheme.primary),
+            style: const TextStyle(fontSize: 24, color: AppTheme.primary),
           ),
           IconButton(
               onPressed: () {
