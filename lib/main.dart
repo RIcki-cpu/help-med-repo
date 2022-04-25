@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:help_med/screens/medicine_screen.dart';
+import 'package:help_med/screens/screens.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:help_med/themes/app_theme.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -59,6 +66,21 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       )),
+=======
+      debugShowCheckedModeBanner: false,
+      title: 'Email y contraseña Login',
+      theme: AppTheme.darkTheme,
+      home: LoginScreen(),
+      initialRoute: 'home',
+      routes: {
+        'home': (BuildContext context) => HomeScreen(),
+        'medicamentos': (BuildContext context) => const MedicationScreen(),
+        'edit_med': (BuildContext context) => EditMedicineScreen(),
+        // 'alergias': (BuildContext context) => const ListView2Screen(),
+        // 'signin': (BuildContext context) => const CardScreen(),
+        'login': (BuildContext context) => LoginScreen(),
+      },
+>>>>>>> 7c2c748e5e894db6a281b8c01f36fe424eb745f9
     );
   }
 }
