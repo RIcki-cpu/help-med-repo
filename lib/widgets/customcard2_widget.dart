@@ -10,7 +10,7 @@ class CustomCard2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -23,7 +23,8 @@ class CustomCard2 extends StatelessWidget {
                 Navigator.pushNamed(context, 'edit_med');
               },
               icon: const Icon(
-                Icons.edit,
+                Icons.edit_attributes_outlined,
+                size: 50,
                 color: AppTheme.primary,
               ))
         ],

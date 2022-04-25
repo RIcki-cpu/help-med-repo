@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:help_med/db.dart';
+import 'package:help_med/model/medication_model.dart';
 
 class EditMedicineScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+  Medication medication = Medication(
+      name: 'name',
+      dosage: 'dosage',
+      quantity: 0,
+      startDate: 'startDate',
+      endDate: 'endDate',
+      notes: '');
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +36,7 @@ class EditMedicineScreen extends StatelessWidget {
                 ),
                 //enabled: true,
                 validator: FormBuilderValidators.required(
-                    errorText: 'tesoro el campo no puede estar vacio'),
+                    errorText: 'el campo no puede estar vacio'),
               ),
               FormBuilderChoiceChip(
                   name: 'dosage',
@@ -97,13 +106,39 @@ class EditMedicineScreen extends StatelessWidget {
                   // SAVE INFORMATION
                   ElevatedButton(
                       onPressed: () {
+                        //VALIDATION Of data
                         _formKey.currentState?.save();
-                        final textfieldata = _formKey.currentState?.value;
+                        final rawname =
+                            _formKey.currentState?.fields['medic_name']?.value;
+                        final rawndosage =
+                            _formKey.currentState?.fields['dosage']?.value;
+                        final rawquantity =
+                            _formKey.currentState?.fields['quantity']?.value;
+                        final rawstartdate =
+                            _formKey.currentState?.fields['init_date']?.value;
+                        final rawendate =
+                            _formKey.currentState?.fields['end_date']?.value;
+                        final rawnotes =
+                            _formKey.currentState?.fields['notes']?.value;
 
-                        if (textfieldata == null) {
+                        if (rawname == null ||
+                            rawndosage == null ||
+                            rawquantity == null ||
+                            rawstartdate == null ||
+                            rawendate == null) {
                           print('no salvar :(');
                         } else {
-                          print('$textfieldata');
+                          medication.name = rawname;
+                          medication.dosage = rawndosage;
+                          medication.quantity = rawquantity.round();
+                          medication.startDate =
+                              rawstartdate.toString().substring(0, 7);
+                          medication.endDate =
+                              rawendate.toString().substring(0, 7);
+                          medication.notes = rawnotes;
+
+                          DB.insert(medication);
+                          print('$medication');
                         }
                       },
                       child: Text('guardar')),

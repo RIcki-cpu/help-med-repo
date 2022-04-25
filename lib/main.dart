@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         'edit_med': (BuildContext context) => EditMedicineScreen(),
         // 'alergias': (BuildContext context) => const ListView2Screen(),
         // 'signin': (BuildContext context) => const CardScreen(),
-        // 'login': (BuildContext context) => const AlertScreen(),
+        'login': (BuildContext context) => LoginScreen(),
       },
     );
   }

@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:help_med/model/medication_model.dart';
 import 'package:help_med/themes/app_theme.dart';
 import 'package:help_med/widgets/widgets.dart';
+import 'package:help_med/db.dart';
 
-class MedicationScreen extends StatelessWidget {
+class MedicationScreen extends StatefulWidget {
   const MedicationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MedicationScreen> createState() => _MedicationScreenState();
+}
+
+class _MedicationScreenState extends State<MedicationScreen> {
+  late List<Medication> drugs;
+
+  cargarLista() async {
+    List<Medication> medicamentos = await DB.getallDrugs();
+    setState(() {
+      drugs = medicamentos;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

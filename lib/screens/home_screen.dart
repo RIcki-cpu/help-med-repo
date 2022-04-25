@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Text('¿Cómo va tu día?',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   fontFamily: 'Montserrat',
                                 )),
                             SizedBox(height: 12),
@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
 
@@ -222,26 +222,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/alergia.png',
                   serviceName: 'Alergias',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/cirugias.png',
                   serviceName: 'Cirugias',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/vacun.png',
                   serviceName: 'Vacunas',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/citam.png',
                   serviceName: 'Citas Médicas',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/enfer.png',
                   serviceName: 'Enfermedades',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
+                  fn: () {
+                    Navigator.pushNamed(context, 'medicamentos');
+                  },
                 ),
               ],
             )),
