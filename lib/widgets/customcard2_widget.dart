@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:help_med/model/medication_model.dart';
 import 'package:help_med/themes/app_theme.dart';
 
 class CustomCard2 extends StatelessWidget {
-  final String medName;
+  final Medication medicamento;
 
-  const CustomCard2({Key? key, required this.medName}) : super(key: key);
+  const CustomCard2({Key? key, required this.medicamento}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +16,13 @@ class CustomCard2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            medName,
+            medicamento.name,
             style: const TextStyle(fontSize: 24, color: AppTheme.primary),
           ),
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'edit_med');
+                Navigator.pushNamed(context, 'edit_med',
+                    arguments: {'medication': medicamento});
               },
               icon: const Icon(
                 Icons.edit_attributes_outlined,

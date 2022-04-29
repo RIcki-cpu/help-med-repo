@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:help_med/model/user_model.dart';
+import 'package:help_med/db.dart';
+import 'package:help_med/model/models.dart';
 import 'package:help_med/screens/screens.dart';
 import 'package:help_med/util/category_card.dart';
 import 'package:help_med/util/service.dart';
@@ -16,6 +17,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+
+  List<Medication> drugs = [];
+
+  cargarLista() async {
+    drugs = await DB.getallDrugs();
+  }
 
   @override
   void initState() {
@@ -247,8 +254,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
-                  fn: () {
-                    Navigator.pushNamed(context, 'medicamentos');
+                  fn: () async {
+                    await cargarLista();
+                    Navigator.pushNamed(context, 'medicamentos',
+                        arguments: {'medicamentos': drugs});
                   },
                 ),
               ],

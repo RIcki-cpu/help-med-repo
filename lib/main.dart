@@ -20,11 +20,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Email y contraseña Login',
       theme: AppTheme.darkTheme,
-      home: LoginScreen(),
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: {
         'home': (BuildContext context) => HomeScreen(),
-        'medicamentos': (BuildContext context) => const MedicationScreen(),
+        'medicamentos': (BuildContext context) => MedicationScreen(),
         'edit_med': (BuildContext context) => EditMedicineScreen(),
         // 'alergias': (BuildContext context) => const ListView2Screen(),
         // 'signin': (BuildContext context) => const CardScreen(),

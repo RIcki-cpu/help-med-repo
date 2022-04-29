@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static const Color primary = Color(0xFF0052AB);
-  // static const Color secondary = Color(0xFF00DCA8);
-  static const Color secondary = Color(0xFF6265EE);
+  static const Color secondary = Color(0xFF00DCA8);
+  //static const Color secondary = Color(0xFF6265EE);
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     // color primario

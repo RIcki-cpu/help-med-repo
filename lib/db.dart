@@ -65,14 +65,14 @@ class DB {
   }
 
   static Future<void> update(Medication medication) async {
-    Database database = _openDB() as Database;
+    Database database = await _openDB();
 
     database.update('drugs', medication.toMap(),
         where: 'name = ?', whereArgs: [medication.name]);
   }
 
   static Future<List<Medication>> getallDrugs() async {
-    Database database = _openDB() as Database;
+    Database database = await _openDB();
 
     final List<Map<String, dynamic>> drugsMap = await database.query('drugs');
     return List.generate(
