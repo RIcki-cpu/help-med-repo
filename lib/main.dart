@@ -6,6 +6,7 @@ import 'package:help_med/themes/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // initalize Firebase before the app
   await Firebase.initializeApp();
   runApp(MyApp());
 }

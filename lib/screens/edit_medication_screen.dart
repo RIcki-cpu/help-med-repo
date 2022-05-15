@@ -54,12 +54,12 @@ class EditMedicineScreen extends StatelessWidget {
       datex = DateTime.now();
       datey = DateTime.now();
       initValues = {
-        'medic_name': 'medicinax',
+        'medic_name': 'nombre medicamento',
         'dosage': 'dosificación_tipo',
         'quantity': 3.3,
         'start_date': datex,
         'end_date': datey,
-        'notes': 'notas chidas raaaaaaaaaaaa'
+        'notes': 'información adicional'
       };
     } else {
       datex = dateFormat.parse(md1.startDate);

@@ -255,6 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
                   fn: () async {
+                    readData();
                     await cargarLista();
                     Navigator.pushNamed(context, 'medicamentos',
                         arguments: {'medicamentos': drugs});
@@ -283,5 +284,18 @@ class _HomeScreenState extends State<HomeScreen> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+  void readData() {
+    // Create a new user with a first and last name
+    final user = <String, dynamic>{
+      "first": "Ada",
+      "last": "Lovelace",
+      "born": 1815
+    };
+
+    // // Add a new document with a generated ID
+    // db.collection("users").add(user).then((DocumentReference doc) =>
+    //     print('DocumentSnapshot added with ID: ${doc.id}'));
   }
 }
