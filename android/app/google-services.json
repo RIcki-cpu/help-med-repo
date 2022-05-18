@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662272243180",
+    "project_id": "help-med-bd",
+    "storage_bucket": "help-med-bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662272243180:android:d9c9533d9caf7f2f6cbcc9",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662272243180-ankc76kvhefal73b6teeboe968ucdrj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW1qVc44KGe2e_RmMAJlJqUffXwy5NDgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662272243180-ankc76kvhefal73b6teeboe968ucdrj7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
