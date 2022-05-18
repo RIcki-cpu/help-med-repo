@@ -172,10 +172,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     categoryName: 'Info Personal',
                     iconImage: 'lib/icons/inform.png',
                   ),
-                  CategoryCard(
+                  /*CategoryCard(
                     categoryName: 'Añadir Miembro',
                     iconImage: 'lib/icons/users.png',
-                  ),
+                  ),*/
                 ],
               ),
             ),
