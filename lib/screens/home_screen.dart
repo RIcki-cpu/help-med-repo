@@ -15,27 +15,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
+  User? user = FirebaseAuth.instance
+      .currentUser; // get user from current Instance ... could be no user :'(
+  UserModel? loggedInUser;
 
-  List<Medication> drugs = [];
-
-  cargarLista() async {
-    drugs = await DB.getallDrugs();
-  }
+  //this profile will be sent as argument to the next screens
+  //TODO when switch profile is implemented the current profile would be retrieve from SwitchProfileScreen in base of id
+  Profile? currentProfile;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+      loggedInUser = UserModel.fromMap(
+          value.data()); // Map authenticate user to our Model user
       setState(() {});
     });
+
+    //JUST FOR Testing Purpose. If there isn't profile add some test data
+    //change as you wish
+    currentProfile ??= Profile(
+        name: 'TestName',
+        id: '123567',
+        age: 55,
+        address: 'av Springfield',
+        phoneNum: '0893213123');
   }
 
   @override
@@ -64,15 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(
-                                "${loggedInUser.firstName} ${loggedInUser.secondName}",
+                            Text(currentProfile!.name,
+                                // "${loggedInUser?.firstName} ${loggedInUser?.secondName}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat',
                                   fontSize: 24,
                                 )),
-                            Text("${loggedInUser.email}",
+                            Text("${loggedInUser?.email}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -254,11 +264,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
-                  fn: () async {
+                  fn: () {
+                    //Send the List of Medications and the userid for writing purposes
                     readData();
-                    await cargarLista();
-                    Navigator.pushNamed(context, 'medicamentos',
-                        arguments: {'medicamentos': drugs});
+                    // Navigator.pushNamed(context, 'medicamentos', arguments: {
+                    //   'userid': loggedInUser!.uid,
+                    //   'listmedication': currentProfile!.medicationList
+                    // });
                   },
                 ),
               ],
@@ -286,16 +298,81 @@ class _HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
-  void readData() {
-    // Create a new user with a first and last name
-    final user = <String, dynamic>{
-      "first": "Ada",
-      "last": "Lovelace",
-      "born": 1815
-    };
+  void readData() async {
+    final db = DataRepository(userid: loggedInUser!.uid);
 
-    // // Add a new document with a generated ID
-    // db.collection("users").add(user).then((DocumentReference doc) =>
-    //     print('DocumentSnapshot added with ID: ${doc.id}'));
+    //READ.......................................................
+
+    final docsnap = await db.getProfile('1234567');
+    final profileMap = docsnap.data();
+
+    // PARSE The Map to Profile object even with null fields
+    Profile px = Profile.fromFiresore(profileMap as Map<String, dynamic>);
+
+    print('La INFO ES......');
+    print(px.phoneNum);
+
+    //CREATE Profile---------------------------------------------
+    // p1 = Profile(
+    //     name: 'Juanita',
+    //     id: '21312321',
+    //     age: 12,
+    //     address: 'de la suarez',
+    //     phoneNum: 'dsasadasdasd');
+
+    // db.addProfile(p1);
+
+    //CREATE profile with the given id-------------------------------
+
+    // p1 = Profile(
+    //     name: 'tu mama la zorra',
+    //     id: '782312',
+    //     age: 99,
+    //     address: 'de la dddd',
+    //     phoneNum: '0231233');
+
+    // db.addProfileID(p1);
+
+    //ERASE ------------------------------------------------------------
+    // p1 = Profile(
+    //     name: 'tu mama la zorra',
+    //     id: '782312',
+    //     age: 99,
+    //     address: 'de la dddd',
+    //     phoneNum: '0231233');
+
+    //UPDATE --------------------------------------------------------
+
+    // Profile p1 = Profile(
+    //     name: 'gERARDO EL CACAS',
+    //     id: '1234567',
+    //     weight: 124,
+    //     age: 44,
+    //     address: 'de la uiiiiiii',
+    //     phoneNum: '0231233');
+
+    // db.updateProfile(p1);
+
+    //CRUD With medicine
+    //
+    //1.- Retrieve Profile and send the List<Medicine>, userid, profileid(ci)
+    //2.- Display all Medicines if there exists
+    //A => Create a new one
+    //3.- push screen edit and send (userid,profileid)
+    //4.- Create a object Medicine
+    //5.- Parse the Medicine to Map
+    //4.- add the Element to th array though and update
+
+    // B=> Edit one
+    // 3.- Push screem edit and send (Medicine, userid, profileid)
+    // 4.- Update the object Medicine and toMap
+    // 5.- Remove the old Medicine from the array with ===== doc().update() .... arrayRemove(objecttOErase)
+    // 6.- Add the Medicine to the array with ====> doc().update().....arrayUnion(ObjectToAdd)
+    //  Retrieve the List<Map<String,dynamic> field with ======= doc().get().data()
+    //  Pop 2 screens and send the List Parsed to MedicineScreen
+
+    //  // Add a new document with a generated ID
+    //   db.collection("users").add(user).then((DocumentReference doc) =>
+    //       print('DocumentSnapshot added with ID: ${doc.id}'));
   }
 }

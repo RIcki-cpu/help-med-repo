@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:help_med/model/medication_model.dart';
+import 'package:help_med/model/models.dart';
 import 'package:help_med/themes/app_theme.dart';
 import 'package:help_med/widgets/widgets.dart';
 
@@ -13,7 +15,11 @@ class MedicationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-    medicamentos = arguments['medicamentos'];
+
+    //Retrieve all the subcolletion Medicine
+
+    medicamentos = retrieveMedicineCollection(
+        userid: arguments['userid'], profile: arguments['profile']);
 
     for (Medication item in medicamentos) {
       CustomCard2 medicamento = CustomCard2(medicamento: item);
@@ -33,8 +39,11 @@ class MedicationScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'edit_med',
-              arguments: {'medication': null});
+          Navigator.pushNamed(context, 'edit_med', arguments: {
+            'medication': null,
+            'userid': arguments['userid'],
+            'profile': arguments['profile']
+          });
         },
         //todo Icon border like a button
         child: const Icon(Icons.add),
@@ -42,5 +51,20 @@ class MedicationScreen extends StatelessWidget {
         backgroundColor: AppTheme.secondary,
       ),
     );
+  }
+
+  List<Medication> retrieveMedicineCollection(
+      {required String userid, required Profile profile}) {
+    List<Medication> drugs = [];
+    //aqui se debe recuperar todos los medicamentos
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    final query = db
+        .collection('users')
+        .doc(userid)
+        .collection('profiles')
+        .where("name", isEqualTo: profile.name)
+        .get();
+    //TODO parse json to list of medication
+    return drugs;
   }
 }

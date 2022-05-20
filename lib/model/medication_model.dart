@@ -2,8 +2,8 @@ class Medication {
   String name;
   String dosage;
   int quantity;
-  String startDate;
-  String endDate;
+  DateTime startDate;
+  DateTime endDate;
   String? notes;
 
   Medication(
@@ -23,5 +23,16 @@ class Medication {
       'endDate': endDate,
       'notes': notes
     };
+  }
+
+  static Medication fromMap(Map<String, dynamic> mdc) {
+    //Todo change this to medication
+    return Medication(
+        name: mdc['name']!,
+        dosage: mdc['dosage']!,
+        quantity: mdc['quantity']!,
+        startDate: mdc['startDate']!,
+        endDate: mdc['endDate']!,
+        notes: mdc['notes']);
   }
 }

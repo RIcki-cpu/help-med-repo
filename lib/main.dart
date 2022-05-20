@@ -24,10 +24,11 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'home': (BuildContext context) => HomeScreen(),
+        'profile': (BuildContext context) => ProfileScreen(),
         'medicamentos': (BuildContext context) => MedicationScreen(),
         'edit_med': (BuildContext context) => EditMedicineScreen(),
-        // 'alergias': (BuildContext context) => const ListView2Screen(),
-        // 'signin': (BuildContext context) => const CardScreen(),
+        // 'vaccines': (BuildContext context) => const ListView2Screen(),
+        'signin': (BuildContext context) => RegistrationScreen(),
         'login': (BuildContext context) => LoginScreen(),
       },
     );

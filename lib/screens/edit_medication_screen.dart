@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:help_med/db.dart';
-import 'package:help_med/model/medication_model.dart';
+import 'package:help_med/model/models.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 class EditMedicineScreen extends StatelessWidget {
@@ -13,8 +14,8 @@ class EditMedicineScreen extends StatelessWidget {
       name: 'name',
       dosage: 'dosage',
       quantity: 0,
-      startDate: 'startDate',
-      endDate: 'endDate',
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
       notes: '');
 
   List<Medication> drugs = [];
@@ -45,6 +46,8 @@ class EditMedicineScreen extends StatelessWidget {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Medication? md1 = arguments['medication'];
+    String userid = arguments['userid'];
+    Profile perfil = arguments['profile'];
 
     DateTime datex;
     DateTime datey;
@@ -62,14 +65,12 @@ class EditMedicineScreen extends StatelessWidget {
         'notes': 'información adicional'
       };
     } else {
-      datex = dateFormat.parse(md1.startDate);
-      datey = dateFormat.parse(md1.endDate);
       initValues = {
         'medic_name': md1.name,
         'dosage': md1.dosage,
         'quantity': md1.quantity.toDouble(),
-        'start_date': datex,
-        'end_date': datey,
+        'start_date': md1.startDate,
+        'end_date': md1.endDate,
         'notes': md1.notes
       };
     }
@@ -197,34 +198,13 @@ class EditMedicineScreen extends StatelessWidget {
                           medication.name = rawname;
                           medication.dosage = rawndosage;
                           medication.quantity = rawquantity.round();
-                          medication.startDate =
-                              dateFormat.format(rawstartdate);
-                          //.toString().substring(0, 7);
-                          medication.endDate = dateFormat.format(rawendate);
+                          medication.startDate = rawstartdate;
+                          medication.endDate = rawendate;
                           //rawendate.toString().substring(0, 7);
                           medication.notes = rawnotes;
-                          //todo update and show full list
 
                           //--------------------------------------------------------
 
-                          try {
-                            //if md1 is empty it means is a new drug. Therefore is an INSERT
-                            if (md1 == null) {
-                              DB.insert(medication);
-                            } else {
-                              //otherwise it means its an UPDATE
-                              DB.update(medication);
-                            }
-                          } catch (e) {
-                            displayDialog(context, e.toString());
-                          }
-
-                          //at the end all drugs must be retrieved once again
-                          List<Medication> medicamentos =
-                              await DB.getallDrugs();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'medicamentos', (route) => route.isFirst,
-                              arguments: {'medicamentos': medicamentos});
                         }
                       },
                       style:

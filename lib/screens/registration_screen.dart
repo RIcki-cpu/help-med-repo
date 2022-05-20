@@ -29,6 +29,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   final confirmpasswordEditingController = new TextEditingController();
 
+  final identificationEditingController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     //campo de nombre
@@ -171,6 +173,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
       style: TextStyle(color: Colors.white),
     );
+    //campo de identificación
+    final idField = TextFormField(
+      autofocus: false,
+      controller: identificationEditingController,
+      cursorColor: Colors.white,
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        RegExp regex = RegExp('^[0-9]');
+        if (value!.isEmpty) {
+          return ("Es obligatorio el campo de identificación para el registro");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Favor solo ingresar numeros");
+        }
+        return null;
+      },
+      onSaved: (value) {
+        identificationEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.crop_landscape_outlined, color: Colors.white),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Numero de Identificación",
+          hintStyle: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+      style: TextStyle(color: Colors.white),
+    );
 
     //boton de registro
     final signupButton = Material(
@@ -183,7 +213,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           onPressed: () {
             singUp(emailEditingController.text, passwordEditingController.text);
           },
-          child: Text("Registrar",
+          child: const Text("Registrar",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 24,
@@ -228,6 +258,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(height: 20),
                     secondNameField,
                     SizedBox(height: 20),
+                    idField,
+                    SizedBox(height: 20),
                     emailField,
                     SizedBox(height: 20),
                     passwordField,
@@ -265,13 +297,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
-    UserModel userModel = UserModel();
+    UserModel userModel = UserModel(
+        uid: 'testid',
+        email: 'anyemail.com',
+        firstName: 'FirstName',
+        secondName: 'SecondName',
+        profileID: '12345678');
 
     //writing all the values
-    userModel.email = user!.email;
+    userModel.email = user!.email!;
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = secondNameEditingController.text;
+    userModel.profileID = identificationEditingController.text;
 
     await firebaseFirestore
         .collection("users")
@@ -279,9 +317,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Creación de cuenta exitosa :)");
 
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false);
+    Navigator.popAndPushNamed(context, 'profile');
   }
 }
