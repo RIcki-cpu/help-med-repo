@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/login_screen.dart';
+import 'package:help_med/screens/medicine_screen.dart';
+import 'package:help_med/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:help_med/themes/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // initalize Firebase before the app
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -16,11 +18,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Email y contraseña Login',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: LoginScreen(),
+      theme: AppTheme.darkTheme,
+      initialRoute: 'login',
+      routes: {
+        'home': (BuildContext context) => HomeScreen(),
+        'medicamentos': (BuildContext context) => MedicationScreen(),
+        'edit_med': (BuildContext context) => EditMedicineScreen(),
+        // 'alergias': (BuildContext context) => const ListView2Screen(),
+        // 'signin': (BuildContext context) => const CardScreen(),
+        'login': (BuildContext context) => LoginScreen(),
+      },
     );
   }
 }

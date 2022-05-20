@@ -17,6 +17,7 @@ class CategoryCard extends StatelessWidget {
           color: Colors.white,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               iconImage,

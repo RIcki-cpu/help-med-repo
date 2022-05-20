@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/home_screen.dart';
-import 'package:flutter_application_1/screens/registration_screen.dart';
+import 'package:help_med/screens/home_screen.dart';
+import 'package:help_med/screens/registration_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //Navigator.pushReplacement(context,
             //MaterialPageRoute(builder: ((context) => HomeScreen())));
           },
-          child: Text("Login",
+          child: const Text("Login",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 24,
@@ -168,6 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //login function
   void signIn(String email, String password) async {
+    // DatabaseReference _testRef = FirebaseDatabase.instance.ref().child('test');
+    // _testRef.set('Hola perraaa');
     if (_formKey.currentState!.validate()) {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)

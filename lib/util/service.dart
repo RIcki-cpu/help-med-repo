@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class Service extends StatelessWidget {
   final String serviceImage;
   final String serviceName;
+  final Function fn;
 
   Service({
     required this.serviceImage,
     required this.serviceName,
+    required this.fn,
   });
   @override
   Widget build(BuildContext context) {
@@ -18,33 +20,38 @@ class Service extends StatelessWidget {
             color: Color.fromARGB(218, 98, 233, 202),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Column(
-            children: [
-              //foto del servicio
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  serviceImage,
-                  height: 90,
+          child: TextButton(
+            onPressed: () {
+              fn();
+            },
+            child: Column(
+              children: [
+                //foto del servicio
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    serviceImage,
+                    height: 70,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //titulo del servicio
-              Text(
-                serviceName,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat',
-                  color: Colors.black,
-                  fontSize: 22,
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
+                //titulo del servicio
+                Text(
+                  serviceName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           )),
     );
   }

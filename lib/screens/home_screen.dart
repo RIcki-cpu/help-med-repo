@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/user_model.dart';
-import 'package:flutter_application_1/screens/login_screen.dart';
-import 'package:flutter_application_1/util/category_card.dart';
-import 'package:flutter_application_1/util/service.dart';
+import 'package:help_med/db.dart';
+import 'package:help_med/model/models.dart';
+import 'package:help_med/screens/screens.dart';
+import 'package:help_med/util/category_card.dart';
+import 'package:help_med/util/service.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +17,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+
+  List<Medication> drugs = [];
+
+  cargarLista() async {
+    drugs = await DB.getallDrugs();
+  }
 
   @override
   void initState() {
@@ -47,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Bienvenido de vuelta",
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
@@ -56,19 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 18,
                               ),
                             ),
-                            SizedBox(
-                              height: 8,
-                            ),
+                            const SizedBox(height: 8),
                             Text(
                                 "${loggedInUser.firstName} ${loggedInUser.secondName}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat',
                                   fontSize: 24,
                                 )),
                             Text("${loggedInUser.email}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat',
@@ -82,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(12)),
                           child: Icon(Icons.person)),
                     ])),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             //card-> Como te sientes
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration:
-                      BoxDecoration(color: Color.fromARGB(195, 5, 196, 230)),
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(195, 5, 196, 230)),
                   child: Row(
                     children: [
                       //prrsimia animacion
@@ -102,30 +107,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       //Como estas el diade Hoy?
                       Expanded(
                         child: Column(
                           children: [
-                            Text('¿Cómo va tu día?',
+                            const Text('¿Cómo va tu día?',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   fontFamily: 'Montserrat',
                                 )),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            Text('Registra los cambios en tu historial',
+                            SizedBox(height: 12),
+                            const Text('Registra los cambios en tu historial',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Montserrat',
                                 )),
-                            SizedBox(
-                              height: 12,
-                            ),
+                            SizedBox(height: 12),
                             Container(
                               padding: EdgeInsets.all(12),
                               decoration: BoxDecoration(
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Secciones',
                     style: TextStyle(
@@ -164,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               height: 65,
               child: ListView(
@@ -185,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
@@ -194,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text(
                     'Registro médico',
                     style: TextStyle(
@@ -216,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
 
@@ -228,32 +229,43 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/alergia.png',
                   serviceName: 'Alergias',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/cirugias.png',
                   serviceName: 'Cirugias',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/vacun.png',
                   serviceName: 'Vacunas',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/citam.png',
                   serviceName: 'Citas Médicas',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/enfer.png',
                   serviceName: 'Enfermedades',
+                  fn: () {},
                 ),
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
+                  fn: () async {
+                    readData();
+                    await cargarLista();
+                    Navigator.pushNamed(context, 'medicamentos',
+                        arguments: {'medicamentos': drugs});
+                  },
                 ),
               ],
             )),
 
             ActionChip(
-                label: Text(
+                label: const Text(
                   "Cerrar Sesión",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -272,5 +284,18 @@ class _HomeScreenState extends State<HomeScreen> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+  void readData() {
+    // Create a new user with a first and last name
+    final user = <String, dynamic>{
+      "first": "Ada",
+      "last": "Lovelace",
+      "born": 1815
+    };
+
+    // // Add a new document with a generated ID
+    // db.collection("users").add(user).then((DocumentReference doc) =>
+    //     print('DocumentSnapshot added with ID: ${doc.id}'));
   }
 }
