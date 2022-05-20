@@ -1,22 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:help_med/screens/home_screen.dart';
+import 'package:help_med/screens/registration_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void main() => runApp(MyApp());
+class personal_info extends StatelessWidget {
+  //personal_info({key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
+  final _edituser = FirebaseDatabase.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(197, 12, 48, 145),
+        backgroundColor: Color.fromARGB(197, 20, 67, 196),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 30.0,
-                backgroundImage: AssetImage('./images/profile-icon-png.png'),
+                backgroundImage: AssetImage('assets/profile-icon-png.png'),
               ),
               Text(
                 'Nombre Completo',
@@ -144,4 +151,33 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+/*
+  postDetailsToFirestore() async {
+    //calling our firestore
+    //calling our user model
+    //sendin these values
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    UserModel userModel = UserModel();
+
+    //writing all the values
+    userModel.email = user!.email;
+    userModel.uid = user!.uid;
+    userModel.firstName = firstNameEditingController.text;
+    userModel.secondName = secondNameEditingController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Creación de cuenta exitosa :)");
+
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false);
+  }*/
 }

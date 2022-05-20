@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:help_med/model/user_model.dart';
+import 'package:help_med/screens/personal_info.dart';
 import 'package:help_med/screens/screens.dart';
 import 'package:help_med/util/category_card.dart';
 import 'package:help_med/util/service.dart';
+import 'personal_info.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -168,10 +170,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     categoryName: 'Resumen',
                     iconImage: 'lib/icons/resumen.png',
                   ),
-                  CategoryCard(
+                  /*CategoryCard(
                     categoryName: 'Info Personal',
                     iconImage: 'lib/icons/inform.png',
-                  ),
+                  ),*/
+                  InkWell(
+                    child: CategoryCard(
+                      categoryName: 'Info Personal',
+                      iconImage: 'lib/icons/inform.png',
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => personal_info())));
+                    },
+                  )
                   /*CategoryCard(
                     categoryName: 'Añadir Miembro',
                     iconImage: 'lib/icons/users.png',

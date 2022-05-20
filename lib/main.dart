@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_med/screens/medicine_screen.dart';
+import 'package:help_med/screens/personal_info.dart';
 import 'package:help_med/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:help_med/themes/app_theme.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'home': (BuildContext context) => HomeScreen(),
+        'personal_info': (BuildContext context) => personal_info(),
         'medicamentos': (BuildContext context) => const MedicationScreen(),
         'edit_med': (BuildContext context) => EditMedicineScreen(),
         // 'alergias': (BuildContext context) => const ListView2Screen(),
