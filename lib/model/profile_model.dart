@@ -39,6 +39,19 @@ class Profile {
   }
 
   static Profile fromFiresore(Map<String, dynamic> profileMap) {
+    List<Map<String, dynamic>> medication = [];
+
+    for (var item in profileMap['MedicationList']) {
+      medication.add({
+        'name': item['name'],
+        'dosage': item['dosage'],
+        'quantity': item['quantity'],
+        'startDate': item['startDate'],
+        'endDate': item['endDate'],
+        'notes': item['notes']
+      });
+    }
+
     return Profile(
         name: profileMap['name'],
         id: profileMap['id'],
@@ -49,7 +62,7 @@ class Profile {
         weight: profileMap['weight'],
         address: profileMap['address'],
         phoneNum: profileMap['phoneNum'],
-        medicationList: profileMap['medicationList']);
+        medicationList: medication);
   }
 
   Map<String, dynamic> toFirestore() {

@@ -52,6 +52,11 @@ class DataRepository {
   void deleteProfile(Profile profile) async {
     await collection.doc(profile.id).delete();
   }
+
+  //GET DefaultProfile of the user
+  Future<DocumentSnapshot> getDefaultProfile(String identification) {
+    return collection.doc(identification).get();
+  }
 }
 
                           // final profileRef = db

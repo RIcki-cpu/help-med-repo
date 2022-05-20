@@ -31,8 +31,8 @@ class Medication {
         name: mdc['name']!,
         dosage: mdc['dosage']!,
         quantity: mdc['quantity']!,
-        startDate: mdc['startDate']!,
-        endDate: mdc['endDate']!,
+        startDate: mdc['startDate'].toDate()!,
+        endDate: mdc['endDate'].toDate()!,
         notes: mdc['notes']);
   }
 }

@@ -4,8 +4,11 @@ import 'package:help_med/themes/app_theme.dart';
 
 class CustomCard2 extends StatelessWidget {
   final Medication medicamento;
+  final String profileID;
 
-  const CustomCard2({Key? key, required this.medicamento}) : super(key: key);
+  const CustomCard2(
+      {Key? key, required this.medicamento, required this.profileID})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +24,25 @@ class CustomCard2 extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'edit_med',
-                    arguments: {'medication': medicamento});
+                Navigator.pushNamed(context, 'edit_med', arguments: {
+                  'medication': medicamento,
+                  'profileid': profileID
+                });
               },
               icon: const Icon(
                 Icons.edit_attributes_outlined,
                 size: 50,
                 color: AppTheme.primary,
-              ))
+              )),
+          IconButton(
+              onPressed: () {
+                //todo erase medicament and reload page
+              },
+              icon: const Icon(
+                Icons.remove_circle,
+                size: 50,
+                color: AppTheme.primary,
+              )),
         ],
       ),
     ));

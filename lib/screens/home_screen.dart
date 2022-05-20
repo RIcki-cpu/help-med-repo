@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      loggedInUser = UserModel.fromMap(
+      this.loggedInUser = UserModel.fromMap(
           value.data()); // Map authenticate user to our Model user
       setState(() {});
     });
@@ -264,13 +264,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
-                  fn: () {
+                  fn: () async {
                     //Send the List of Medications and the userid for writing purposes
-                    readData();
-                    // Navigator.pushNamed(context, 'medicamentos', arguments: {
-                    //   'userid': loggedInUser!.uid,
-                    //   'listmedication': currentProfile!.medicationList
-                    // });
+                    Profile testProfile = await getDefaultProfile();
+                    Navigator.pushNamed(context, 'medicamentos', arguments: {
+                      'profile': testProfile,
+                    });
+                    //readData(); JUST for testing Purposes
                   },
                 ),
               ],
@@ -299,18 +299,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void readData() async {
-    final db = DataRepository(userid: loggedInUser!.uid);
+    // final db = DataRepository(userid: loggedInUser!.uid);
 
     //READ.......................................................
 
-    final docsnap = await db.getProfile('1234567');
-    final profileMap = docsnap.data();
+    // final docsnap = await db.getProfile('1234567');
+    // final profileMap = docsnap.data();
 
-    // PARSE The Map to Profile object even with null fields
-    Profile px = Profile.fromFiresore(profileMap as Map<String, dynamic>);
+    // // PARSE The Map to Profile object even with null fields
+    // Profile px = Profile.fromFiresore(profileMap as Map<String, dynamic>);
 
-    print('La INFO ES......');
-    print(px.phoneNum);
+    // print('La INFO ES......');
+    // print(px.phoneNum);
 
     //CREATE Profile---------------------------------------------
     // p1 = Profile(
@@ -374,5 +374,13 @@ class _HomeScreenState extends State<HomeScreen> {
     //  // Add a new document with a generated ID
     //   db.collection("users").add(user).then((DocumentReference doc) =>
     //       print('DocumentSnapshot added with ID: ${doc.id}'));
+  }
+
+  Future<Profile> getDefaultProfile() async {
+    final db = DataRepository(userid: loggedInUser!.uid);
+    final docsnap = await db.getDefaultProfile(loggedInUser!.profileID);
+    final profileMap = docsnap.data();
+
+    return Profile.fromFiresore(profileMap as Map<String, dynamic>);
   }
 }

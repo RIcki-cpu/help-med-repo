@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:help_med/model/medication_model.dart';
 import 'package:help_med/model/models.dart';
@@ -16,13 +15,13 @@ class MedicationScreen extends StatelessWidget {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
-    //Retrieve all the subcolletion Medicine
-
-    medicamentos = retrieveMedicineCollection(
-        userid: arguments['userid'], profile: arguments['profile']);
+    // Parsing Data
+    medicamentos = arguments['profile'].toListMedication();
+    String profileID = arguments['profile'].id;
 
     for (Medication item in medicamentos) {
-      CustomCard2 medicamento = CustomCard2(medicamento: item);
+      CustomCard2 medicamento =
+          CustomCard2(medicamento: item, profileID: profileID);
       drugs.add(medicamento);
     }
 
@@ -39,11 +38,8 @@ class MedicationScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'edit_med', arguments: {
-            'medication': null,
-            'userid': arguments['userid'],
-            'profile': arguments['profile']
-          });
+          Navigator.pushNamed(context, 'edit_med',
+              arguments: {'profileid': profileID});
         },
         //todo Icon border like a button
         child: const Icon(Icons.add),
@@ -53,18 +49,7 @@ class MedicationScreen extends StatelessWidget {
     );
   }
 
-  List<Medication> retrieveMedicineCollection(
-      {required String userid, required Profile profile}) {
-    List<Medication> drugs = [];
-    //aqui se debe recuperar todos los medicamentos
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    final query = db
-        .collection('users')
-        .doc(userid)
-        .collection('profiles')
-        .where("name", isEqualTo: profile.name)
-        .get();
-    //TODO parse json to list of medication
-    return drugs;
-  }
+  // List<Medication> retrieveMedicineCollection({required Profile profile}) {
+  //   return profile.toListMedication();
+  // }
 }

@@ -46,22 +46,17 @@ class EditMedicineScreen extends StatelessWidget {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Medication? md1 = arguments['medication'];
-    String userid = arguments['userid'];
-    Profile perfil = arguments['profile'];
+    String profileID = arguments['profileid'];
 
-    DateTime datex;
-    DateTime datey;
     Map<String, dynamic> initValues;
 
     if (md1 == null) {
-      datex = DateTime.now();
-      datey = DateTime.now();
       initValues = {
         'medic_name': 'nombre medicamento',
         'dosage': 'dosificación_tipo',
         'quantity': 3.3,
-        'start_date': datex,
-        'end_date': datey,
+        'start_date': DateTime.now(),
+        'end_date': DateTime.now(),
         'notes': 'información adicional'
       };
     } else {
@@ -192,7 +187,8 @@ class EditMedicineScreen extends StatelessWidget {
                             rawquantity == null ||
                             rawstartdate == null ||
                             rawendate == null) {
-                          displayDialog(context, 'META BIEN LOS DATOS');
+                          displayDialog(
+                              context, 'Favor Introducir bien los datos');
                         } else {
                           //ALMACENMAIENTO DE CAMPOS EN EL OBJETO  MEDICATION
                           medication.name = rawname;
