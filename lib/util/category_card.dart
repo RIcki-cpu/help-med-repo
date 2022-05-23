@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class CategoryCard extends StatelessWidget {
   final iconImage;
   final String categoryName;
+  final Function function;
 
-  CategoryCard({required this.iconImage, required this.categoryName});
+  CategoryCard(
+      {required this.iconImage,
+      required this.categoryName,
+      required this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +20,33 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              iconImage,
-              height: 30,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              categoryName,
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
+        child: TextButton(
+          onPressed: () => function,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  function();
+                },
+                icon: Image.asset(
+                  iconImage,
+                  height: 70,
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                categoryName,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:help_med/model/models.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataRepository {
@@ -57,64 +56,30 @@ class DataRepository {
   Future<DocumentSnapshot> getDefaultProfile(String identification) {
     return collection.doc(identification).get();
   }
+
+  //CRUD Medication
+
+  //CREATE => ADD TO THE LIST
+  Future<void> addMedicine(Profile profile, Map<String, dynamic> drug) async {
+    await collection.doc(profile.id).update({
+      "medicationList": FieldValue.arrayUnion([drug]),
+    });
+  }
+
+  //REMOVE
+  Future<void> removeMedicine(
+      Profile profile, Map<String, dynamic> drug) async {
+    await collection.doc(profile.id).update({
+      "medicationList": FieldValue.arrayRemove([drug]),
+    });
+  }
+
+  //UPDATE => REMOVE AND ADD TO THE LIST
+  Future<void> updateMedicine(Profile profile, Map<String, dynamic> oldrug,
+      Map<String, dynamic> newdrug) async {
+    await collection.doc(profile.id).update({
+      "medicationList": FieldValue.arrayRemove([oldrug]),
+    });
+    await addMedicine(profile, newdrug);
+  }
 }
-
-                          // final profileRef = db
-                          //     .collection("users")
-                          //     .doc(userid)
-                          //     .collection("profiles")
-                          //     .doc('1725161051')
-                          //     .withConverter(
-                          //       fromFirestore: Profile.fromFiresore,
-                          //       toFirestore: (Profile perfil, _) =>
-                          //           perfil.toFirestore(),
-                          //     );
-
-                          // //Profile profile = await profileRef.get().then((s) => s.data());
-
-                          // final docSnap = await profileRef.get();
-                          // Profile profile =
-                          //     docSnap.data(); // Convert to Profile object
-                          // if (profile != null) {
-                          //   print(profile);
-                          // } else {
-                          //   print("No such document.");
-                          // }
-
-                          // final profileRef = db
-                          //     .collection("users")
-                          //     .doc(userid)
-                          //     .collection("profiles")
-                          //   .where("name", isEqualTo: perfil.name);
-
-
-
-
-
-
-
-                                                    // FirebaseFirestore db = FirebaseFirestore.instance;
-
-                          // Map<String, dynamic> data = medication.toMap();
-
-
-                          // final profileRef = db
-                          //     .collection('users')
-                          //     .doc(userid)
-                          //     .collection('profiles')
-                          //     .doc('1725161051');
-
-                          // profileRef.get().then(
-                          //   (DocumentSnapshot doc) {
-                          //     final data = doc.data() as Map<String, dynamic>;
-                          //     print(data);
-                          //   },
-                          //   onError: (e) => print("Error getting document: $e"),
-                          // );
-
-                          // print("el id es......" + profileRef.id);
-
-                          // //     .collection('medication')
-                          // //     .doc(medication.name)
-                          // //     .set(medication.toMap())
-                          // // .onError((e, _) => print("Error writing document: $e"));

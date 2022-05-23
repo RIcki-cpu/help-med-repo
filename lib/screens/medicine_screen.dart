@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:help_med/model/medication_model.dart';
 import 'package:help_med/model/models.dart';
 import 'package:help_med/themes/app_theme.dart';
 import 'package:help_med/widgets/widgets.dart';
 
 class MedicationScreen extends StatelessWidget {
+  final String userid = FirebaseAuth.instance.currentUser!.uid;
   List<Medication> medicamentos = [];
-  List<CustomCard2> drugs = [];
+  List<MedicineCard> drugs = [];
 
   // MedicationScreen({Key? key, required this.medicamentos}) : super(key: key);
 
@@ -16,12 +17,12 @@ class MedicationScreen extends StatelessWidget {
         <String, dynamic>{}) as Map;
 
     // Parsing Data
-    medicamentos = arguments['profile'].toListMedication();
-    String profileID = arguments['profile'].id;
+    Profile p1 = arguments['profile'];
+    medicamentos = p1.toListMedication();
 
     for (Medication item in medicamentos) {
-      CustomCard2 medicamento =
-          CustomCard2(medicamento: item, profileID: profileID);
+      MedicineCard medicamento =
+          MedicineCard(medicamento: item, profile: p1, userid: userid);
       drugs.add(medicamento);
     }
 
@@ -38,8 +39,7 @@ class MedicationScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'edit_med',
-              arguments: {'profileid': profileID});
+          Navigator.pushNamed(context, 'edit_med', arguments: {'profile': p1});
         },
         //todo Icon border like a button
         child: const Icon(Icons.add),

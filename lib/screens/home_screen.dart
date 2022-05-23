@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   UserModel? loggedInUser;
 
   //this profile will be sent as argument to the next screens
-  //TODO when switch profile is implemented the current profile would be retrieve from SwitchProfileScreen in base of id
+
   Profile? currentProfile;
 
   @override
@@ -40,16 +40,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
     //JUST FOR Testing Purpose. If there isn't profile add some test data
     //change as you wish
-    currentProfile ??= Profile(
-        name: 'TestName',
-        id: '123567',
-        age: 55,
-        address: 'av Springfield',
-        phoneNum: '0893213123');
+    //   currentProfile ??= Profile(
+    //       name: 'TestName',
+    //       id: '123567',
+    //       age: 55,
+    //       address: 'av Springfield',
+    //       phoneNum: '0893213123');
   }
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
+    currentProfile = arguments[
+        'profile']; // retrieve Profile from SwitchAccountScreen or EditMedicine
+
     return Scaffold(
       backgroundColor: Color.fromARGB(181, 6, 111, 223),
       body: SafeArea(
@@ -74,15 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(currentProfile!.name,
-                                // "${loggedInUser?.firstName} ${loggedInUser?.secondName}",
+                            Text(
+                                //currentProfile!.name,
+                                currentProfile?.name == null
+                                    ? "${loggedInUser?.firstName} ${loggedInUser?.secondName}"
+                                    : currentProfile!.name,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: 'Montserrat',
                                   fontSize: 24,
                                 )),
-                            Text("${loggedInUser?.email}",
+                            Text(
+                                currentProfile?.id == null
+                                    ? "${loggedInUser?.profileID}"
+                                    : currentProfile!.id,
+                                // "${loggedInUser?.email}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -184,15 +197,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   CategoryCard(
                     categoryName: 'Resumen',
                     iconImage: 'lib/icons/resumen.png',
+                    function: () {},
                   ),
                   CategoryCard(
-                    categoryName: 'Info Personal',
-                    iconImage: 'lib/icons/inform.png',
-                  ),
+                      categoryName: 'Info Personal',
+                      iconImage: 'lib/icons/inform.png',
+                      function: () {}),
                   CategoryCard(
-                    categoryName: 'Añadir Miembro',
-                    iconImage: 'lib/icons/users.png',
-                  ),
+                      categoryName: 'Añadir Miembro',
+                      iconImage: 'lib/icons/users.png',
+                      function: () {
+                        Navigator.pushNamed(context, 'switchAcc',
+                            arguments: {'userid': loggedInUser!.uid});
+                      }),
                 ],
               ),
             ),
@@ -265,10 +282,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
                   fn: () async {
-                    //Send the List of Medications and the userid for writing purposes
-                    Profile testProfile = await getDefaultProfile();
+                    //Send the currentProfile
+                    currentProfile ??= await getDefaultProfile();
+
                     Navigator.pushNamed(context, 'medicamentos', arguments: {
-                      'profile': testProfile,
+                      'profile': currentProfile,
                     });
                     //readData(); JUST for testing Purposes
                   },
@@ -298,6 +316,8 @@ class _HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
+  //Todo fix bug when you update the medicine the home screen doesn't update the profile so i keep the data but
+  // in the
   void readData() async {
     // final db = DataRepository(userid: loggedInUser!.uid);
 

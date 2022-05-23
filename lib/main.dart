@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         'profile': (BuildContext context) => ProfileScreen(),
         'medicamentos': (BuildContext context) => MedicationScreen(),
         'edit_med': (BuildContext context) => EditMedicineScreen(),
+        'switchAcc': (BuildContext context) => SwitchAccount(),
         // 'vaccines': (BuildContext context) => const ListView2Screen(),
         'signin': (BuildContext context) => RegistrationScreen(),
         'login': (BuildContext context) => LoginScreen(),

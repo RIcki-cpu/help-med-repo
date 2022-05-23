@@ -35,10 +35,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_form_builder: ^7.1.1
+  flutter_material_pickers: ^3.1.4+1
   flutter_svg: ^0.17.4
   fluttertoast: ^8.0.9
+  font_awesome_flutter: ^10.1.0
   form_builder_validators: ^8.1.0
-  sqflite: ^2.0.2+1
   intl: ^0.17.0
 
 dev_dependencies:

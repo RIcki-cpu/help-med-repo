@@ -1,15 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:help_med/db.dart';
 import 'package:help_med/model/models.dart';
+import 'package:help_med/screens/home_screen.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 class EditMedicineScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
   final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-
+  final String userid = FirebaseAuth.instance.currentUser!.uid;
   Medication medication = Medication(
       name: 'name',
       dosage: 'dosage',
@@ -46,7 +47,7 @@ class EditMedicineScreen extends StatelessWidget {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Medication? md1 = arguments['medication'];
-    String profileID = arguments['profileid'];
+    Profile profile = arguments['profile'];
 
     Map<String, dynamic> initValues;
 
@@ -196,11 +197,24 @@ class EditMedicineScreen extends StatelessWidget {
                           medication.quantity = rawquantity.round();
                           medication.startDate = rawstartdate;
                           medication.endDate = rawendate;
-                          //rawendate.toString().substring(0, 7);
                           medication.notes = rawnotes;
 
                           //--------------------------------------------------------
-
+                          final db = DataRepository(userid: userid);
+                          if (md1 == null) {
+                            db.addMedicine(profile, medication.toMap());
+                          } else {
+                            db.updateMedicine(
+                                profile, md1.toMap(), medication.toMap());
+                          }
+                          Profile upToDateProfile =
+                              await Profile.getUpToDateProfile(
+                                  userid, profile.id);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, 'home', (route) => route.isFirst,
+                              arguments: {
+                                'profile': upToDateProfile,
+                              });
                         }
                       },
                       style:

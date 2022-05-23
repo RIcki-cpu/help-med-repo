@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:help_med/model/models.dart';
 
+import '../db.dart';
+
 class Profile {
   String name;
   String? imageUrl;
@@ -9,8 +11,8 @@ class Profile {
   double? height;
   double? weight;
   String? bloodType;
-  String address;
-  String phoneNum;
+  String? address;
+  String? phoneNum;
   List<Map<String, dynamic>>? medicationList;
   // List<Vaccine>? vaccine;
   // List<>? vaccine;
@@ -23,8 +25,8 @@ class Profile {
       this.bloodType,
       this.height,
       this.weight,
-      required this.address,
-      required this.phoneNum,
+      this.address,
+      this.phoneNum,
       this.medicationList});
 
   //Parse the List<Map> to List<Medic>
@@ -32,26 +34,39 @@ class Profile {
     List<Medication> drugs = [];
 
     //Convert each Map to Medication
-    for (Map<String, dynamic> drug in medicationList!) {
-      drugs.add(Medication.fromMap(drug));
+    if (medicationList != null) {
+      for (Map<String, dynamic> drug in medicationList!) {
+        drugs.add(Medication.fromMap(drug));
+      }
     }
+
     return drugs;
+  }
+
+  static Future<Profile> getUpToDateProfile(
+      String userid, String profileid) async {
+    final db = DataRepository(userid: userid);
+    final docsnap = await db.getProfile(profileid);
+    final profileMap = docsnap.data();
+
+    return fromFiresore(profileMap as Map<String, dynamic>);
   }
 
   static Profile fromFiresore(Map<String, dynamic> profileMap) {
     List<Map<String, dynamic>> medication = [];
 
-    for (var item in profileMap['MedicationList']) {
-      medication.add({
-        'name': item['name'],
-        'dosage': item['dosage'],
-        'quantity': item['quantity'],
-        'startDate': item['startDate'],
-        'endDate': item['endDate'],
-        'notes': item['notes']
-      });
+    if (profileMap['medicationList'] != null) {
+      for (var item in profileMap['medicationList']) {
+        medication.add({
+          'name': item['name'],
+          'dosage': item['dosage'],
+          'quantity': item['quantity'],
+          'startDate': item['startDate'],
+          'endDate': item['endDate'],
+          'notes': item['notes']
+        });
+      }
     }
-
     return Profile(
         name: profileMap['name'],
         id: profileMap['id'],
@@ -63,6 +78,13 @@ class Profile {
         address: profileMap['address'],
         phoneNum: profileMap['phoneNum'],
         medicationList: medication);
+  }
+
+  factory Profile.fromSnapshot(DocumentSnapshot snapshot) {
+    final newProfile =
+        Profile.fromFiresore(snapshot.data() as Map<String, dynamic>);
+    newProfile.id = snapshot.reference.id;
+    return newProfile;
   }
 
   Map<String, dynamic> toFirestore() {
