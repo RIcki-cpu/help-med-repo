@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:help_med/db.dart';
 import 'package:help_med/model/models.dart';
 import 'package:help_med/themes/app_theme.dart';
@@ -36,9 +37,8 @@ class MedicineCard extends StatelessWidget {
                       'profile': profile
                     });
                   },
-                  icon: const Icon(
-                    Icons.edit_calendar_sharp,
-                    size: 50,
+                  icon: const FaIcon(
+                    FontAwesomeIcons.pencil,
                     color: AppTheme.primary,
                   )),
               IconButton(
@@ -56,9 +56,8 @@ class MedicineCard extends StatelessWidget {
                     // Navigator.pushNamed(context, 'medicamentos',
                     //     arguments: {'profile': upToDateProfile});
                   },
-                  icon: const Icon(
-                    Icons.remove_circle,
-                    size: 50,
+                  icon: const FaIcon(
+                    FontAwesomeIcons.trash,
                     color: Colors.red,
                   )),
             ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_med/model/models.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:help_med/screens/screens.dart';
+
 import 'package:help_med/themes/app_theme.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -41,36 +41,9 @@ class ProfileCard extends StatelessWidget {
         Navigator.popAndPushNamed(context, 'home',
             arguments: {'profile': profile});
       },
-      // onTap: () => Navigator.push<Widget>(
-      //   //Still doesn't work
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => HomeScreen(),
-      //   ),
-      // ),
+
       splashColor: Colors.brown,
       // splashColor: splashColor[pet.type],
     ));
   }
-
-  // Widget _getPetIcon(String type) {
-  //   Widget petIcon;
-  //   if (type == 'cat') {
-  //     petIcon = IconButton(
-  //       icon: const Icon(Pets.cat, color: Colors.pinkAccent,),
-  //       onPressed: () {},
-  //     );
-  //   } else if (type == 'dog') {
-  //     petIcon = IconButton(
-  //       icon: const Icon(Pets.dog_seating, color: Colors.blueAccent,),
-  //       onPressed: () {},
-  //     );
-  //   } else {
-  //     petIcon = IconButton(
-  //       icon: const Icon(Icons.pets, color: Colors.blueGrey,),
-  //       onPressed: () {},
-  //     );
-  //   }
-  //   return petIcon;
-  // }
 }

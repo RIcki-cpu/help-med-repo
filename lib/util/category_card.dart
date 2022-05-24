@@ -21,19 +21,19 @@ class CategoryCard extends StatelessWidget {
           color: Colors.white,
         ),
         child: TextButton(
-          onPressed: () => function,
+          onPressed: () => function(),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
-                onPressed: () {
-                  function();
-                },
-                icon: Image.asset(
-                  iconImage,
-                  height: 70,
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () {
+              //     function();
+              //   },
+              //   icon: Image.asset(
+              //     iconImage,
+              //     height: 70,
+              //   ),
+              // ),
               SizedBox(
                 width: 5,
               ),

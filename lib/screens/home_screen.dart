@@ -6,6 +6,8 @@ import 'package:help_med/model/models.dart';
 import 'package:help_med/screens/screens.dart';
 import 'package:help_med/util/category_card.dart';
 import 'package:help_med/util/service.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -102,13 +104,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: 'Montserrat',
                                 )),
                           ]),
-                      //profile picture
-                      Container(
-                          padding: EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(195, 5, 230, 177),
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Icon(Icons.person)),
+                      //close session
+                      Column(
+                        children: [
+                          SizedBox(height: 20),
+                          const Text(
+                            'Cerrar Sesión',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          IconButton(
+                            icon: const FaIcon(
+                              FontAwesomeIcons.rectangleXmark,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              logout(context);
+                            },
+                            iconSize: 50,
+                          ),
+                        ],
+                      ),
                     ])),
             const SizedBox(height: 25),
             //card-> Como te sientes
@@ -195,14 +210,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   CategoryCard(
-                    categoryName: 'Resumen',
+                    categoryName: 'Ficha Medica',
                     iconImage: 'lib/icons/resumen.png',
-                    function: () {},
+                    function: () async {
+                      currentProfile ??= await getDefaultProfile();
+                      Navigator.pushNamed(context, 'medRec',
+                          arguments: {'profile': currentProfile});
+                    },
                   ),
                   CategoryCard(
                       categoryName: 'Info Personal',
                       iconImage: 'lib/icons/inform.png',
-                      function: () {}),
+                      function: () async {
+                        currentProfile ??= await getDefaultProfile();
+                        Navigator.pushNamed(context, 'profile', arguments: {
+                          'userid': loggedInUser!.uid,
+                          'profile': currentProfile
+                        });
+                      }),
                   CategoryCard(
                       categoryName: 'Añadir Miembro',
                       iconImage: 'lib/icons/users.png',
@@ -219,16 +244,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
             //lista de registros
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: const EdgeInsets.only(left: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Text(
-                    'Registro médico',
+                    'Registra tu información Medica aquí',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat',
-                      color: Color.fromARGB(235, 98, 233, 202),
+                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -254,6 +279,19 @@ class _HomeScreenState extends State<HomeScreen> {
               scrollDirection: Axis.horizontal,
               children: [
                 Service(
+                  serviceImage: 'lib/images/medicamentos.png',
+                  serviceName: 'Medicamentos',
+                  fn: () async {
+                    //Send the currentProfile
+                    currentProfile ??= await getDefaultProfile();
+
+                    Navigator.pushNamed(context, 'medicamentos', arguments: {
+                      'profile': currentProfile,
+                    });
+                    //readData(); JUST for testing Purposes
+                  },
+                ),
+                Service(
                   serviceImage: 'lib/images/alergia.png',
                   serviceName: 'Alergias',
                   fn: () {},
@@ -278,35 +316,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   serviceName: 'Enfermedades',
                   fn: () {},
                 ),
-                Service(
-                  serviceImage: 'lib/images/medicamentos.png',
-                  serviceName: 'Medicamentos',
-                  fn: () async {
-                    //Send the currentProfile
-                    currentProfile ??= await getDefaultProfile();
-
-                    Navigator.pushNamed(context, 'medicamentos', arguments: {
-                      'profile': currentProfile,
-                    });
-                    //readData(); JUST for testing Purposes
-                  },
-                ),
               ],
             )),
-
-            ActionChip(
-                label: const Text(
-                  "Cerrar Sesión",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {
-                  logout(context);
-                }),
+            const SizedBox(height: 20)
+            // ActionChip(
+            //     label: const Text(
+            //       "Cerrar Sesión",
+            //       style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //     onPressed: () {
+            //       logout(context);
+            //     }),
           ],
         ),
       ),
+      // bottomNavigationBar: MotionTabBar(
+      //   initialSelectedTab: "Home",
+      //   labels: const ["Ficha Medica", "Home", "Añadir Perfil"],
+      //   icons: const [
+      //     FontAwesomeIcons.fileMedical,
+      //     Icons.home,
+      //     FontAwesomeIcons.users,
+      //   ],
+      //   onTabItemSelected: () {},
+      // )
     );
   }
 

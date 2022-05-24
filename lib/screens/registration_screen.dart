@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:help_med/db.dart';
+import 'package:help_med/model/profile_model.dart';
 import 'package:help_med/model/user_model.dart';
 import 'package:help_med/screens/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +32,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final confirmpasswordEditingController = new TextEditingController();
 
   final identificationEditingController = new TextEditingController();
+
+  final ageEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +206,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       style: TextStyle(color: Colors.white),
     );
 
+    //campo de identificación
+    final ageField = TextFormField(
+      autofocus: false,
+      controller: ageEditingController,
+      cursorColor: Colors.white,
+      keyboardType: TextInputType.number,
+      validator: (value) {
+        RegExp regex = RegExp('^[0-9]');
+        if (value!.isEmpty) {
+          return ("Es obligatorio el campo de identificación para el registro");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Favor solo ingresar numeros");
+        }
+        return null;
+      },
+      onSaved: (value) {
+        ageEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.crop_landscape_outlined, color: Colors.white),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Edad",
+          hintStyle: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+      style: TextStyle(color: Colors.white),
+    );
+
     //boton de registro
     final signupButton = Material(
       elevation: 5,
@@ -260,6 +293,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(height: 20),
                     idField,
                     SizedBox(height: 20),
+                    ageField,
+                    SizedBox(height: 20),
                     emailField,
                     SizedBox(height: 20),
                     passwordField,
@@ -304,6 +339,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         secondName: 'SecondName',
         profileID: '12345678');
 
+    Profile defaultProfile = Profile(
+        name:
+            '${firstNameEditingController.text} ${secondNameEditingController.text}',
+        id: identificationEditingController.text,
+        age: int.parse(ageEditingController.text));
     //writing all the values
     userModel.email = user!.email!;
     userModel.uid = user.uid;
@@ -317,6 +357,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Creación de cuenta exitosa :)");
 
-    Navigator.popAndPushNamed(context, 'profile');
+    final db = DataRepository(userid: user.uid);
+    db.addProfileID(defaultProfile);
+
+    Navigator.popAndPushNamed(context, 'home');
   }
 }

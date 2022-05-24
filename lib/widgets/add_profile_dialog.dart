@@ -31,21 +31,24 @@ class _AddProfileDialogState extends State<AddProfileDialog> {
           child: ListBody(
             children: <Widget>[
               //NAME INPUT
+
               TextField(
                 autofocus: true,
                 decoration: const InputDecoration(
+                    labelText: "Nombre Perfi:",
                     border: OutlineInputBorder(),
                     hintText: 'Introducir el nombre'),
                 onChanged: (text) => profileName = text,
               ),
               //AGE INPUT
-              SizedBox(
-                  width: 150.0,
-                  child: ElevatedButton(
-                    child: const Text('Selecciona tu edad'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: const Text('Selecciona edad'),
                     onPressed: () => showMaterialNumberPicker(
                       context: context,
-                      //title: '',
+                      title: 'Selecciona tu edad',
                       maxNumber: 100,
                       minNumber: 1,
                       step: 1,
@@ -54,12 +57,17 @@ class _AddProfileDialogState extends State<AddProfileDialog> {
                       selectedNumber: age,
                       onChanged: (value) => setState(() => age = value),
                     ),
-                  )),
+                  ),
+                  //SizedBox(width: 40),
+                  Text("$age")
+                ],
+              ),
               //Id input
               TextField(
                 autofocus: true,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
+                    labelText: "Identificación:",
                     border: OutlineInputBorder(),
                     hintText: 'Introducir la identificación'),
                 onChanged: (text) => profileid = text,
