@@ -23,7 +23,6 @@ class Service extends StatelessWidget {
           child: TextButton(
             onPressed: () {
               fn();
-              print('WAKANDA FOREVERRRR');
             },
             child: Column(
               children: [

@@ -168,6 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //login function
   void signIn(String email, String password) async {
+    // DatabaseReference _testRef = FirebaseDatabase.instance.ref().child('test');
+    // _testRef.set('Hola perraaa');
     if (_formKey.currentState!.validate()) {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:help_med/db.dart';
 import 'package:help_med/model/user_model.dart';
 import 'package:help_med/screens/personal_info.dart';
 import 'package:help_med/screens/screens.dart';
@@ -18,6 +19,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+
+  List<medication> drugs = [];
+
+  cargarLista() async {
+    drugs = (await DB.getallDrugs()).cast<medication>();
+  }
 
   @override
   void initState() {
@@ -261,8 +268,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Service(
                   serviceImage: 'lib/images/medicamentos.png',
                   serviceName: 'Medicamentos',
-                  fn: () {
-                    Navigator.pushNamed(context, 'medicamentos');
+                  fn: () async {
+                    readData();
+                    await cargarLista();
+                    Navigator.pushNamed(context, 'medicamentos',
+                        arguments: {'medicamentos': drugs});
                   },
                 ),
               ],
@@ -289,4 +299,19 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
+
+  void readData() {
+    // Create a new user with a first and last name
+    final user = <String, dynamic>{
+      "first": "Ada",
+      "last": "Lovelace",
+      "born": 1815
+    };
+
+    // // Add a new document with a generated ID
+    // db.collection("users").add(user).then((DocumentReference doc) =>
+    //     print('DocumentSnapshot added with ID: ${doc.id}'));
+  }
 }
+
+mixin medication {}

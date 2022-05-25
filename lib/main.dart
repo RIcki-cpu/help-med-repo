@@ -7,6 +7,7 @@ import 'package:help_med/themes/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // initalize Firebase before the app
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': (BuildContext context) => HomeScreen(),
         'personal_info': (BuildContext context) => personal_info(),
-        'medicamentos': (BuildContext context) => const MedicationScreen(),
+        'medicamentos': (BuildContext context) => MedicationScreen(),
         'edit_med': (BuildContext context) => EditMedicineScreen(),
         // 'alergias': (BuildContext context) => const ListView2Screen(),
         // 'signin': (BuildContext context) => const CardScreen(),
