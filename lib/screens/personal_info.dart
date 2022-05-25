@@ -11,12 +11,14 @@ class personal_info extends StatelessWidget {
 
   final _edituser = FirebaseDatabase.instance;
 
+  get onPressed => null;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromARGB(197, 20, 67, 196),
+        backgroundColor: Color(0x9C0052AB),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +28,7 @@ class personal_info extends StatelessWidget {
                 backgroundImage: AssetImage('assets/profile-icon-png.png'),
               ),
               Text(
-                'Nombre Completo',
+                'Juan Carlos Sarabia',
                 style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 40.0,
@@ -34,7 +36,7 @@ class personal_info extends StatelessWidget {
                     color: Colors.white),
               ),
               Text(
-                'Edad',
+                '29',
                 style: TextStyle(
                     fontSize: 20.0,
                     fontFamily: 'Montserrat',
@@ -46,18 +48,82 @@ class personal_info extends StatelessWidget {
                 width: 150.0,
                 height: 20.0,
                 child: Divider(
-                  color: Colors.teal.shade100,
+                  color: Color(0xFF00DCA8),
                 ),
               ),
               Card(
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: ListTile(
                   leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
+                    Icons.perm_identity,
+                    color: Color(0xFF00DCA8),
                   ),
                   title: Text(
-                    'Cédula',
+                    '1718142583',
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
+                        color: Colors.teal.shade900),
+                  ),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.calendar_month,
+                    color: Color(0xFF00DCA8),
+                  ),
+                  title: Text(
+                    '17/06/1997',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'Montserrat',
+                        color: Colors.teal.shade900),
+                  ),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.group_outlined,
+                    color: Color(0xFF00DCA8),
+                  ),
+                  title: Text(
+                    'Masculino',
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
+                        color: Color.fromRGBO(0, 77, 64, 1)),
+                  ),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.local_hospital,
+                    color: Color(0xFF00DCA8),
+                  ),
+                  title: Text(
+                    'O+',
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 20.0,
+                        color: Color(0xFF004D40)),
+                  ),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.location_on,
+                    color: Color(0xFF00DCA8),
+                  ),
+                  title: Text(
+                    'Av. Marina de Jesus N25-100',
                     style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 20.0,
@@ -70,26 +136,10 @@ class personal_info extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(
                     Icons.phone,
-                    color: Colors.teal,
+                    color: Color(0xFF00DCA8),
                   ),
                   title: Text(
-                    'Fecha de nacimiento',
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'Montserrat',
-                        color: Colors.teal.shade900),
-                  ),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'Género',
+                    '0999866060',
                     style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 20.0,
@@ -97,52 +147,20 @@ class personal_info extends StatelessWidget {
                   ),
                 ),
               ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'Tipo de Sangre',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 20.0,
-                        color: Colors.teal.shade900),
-                  ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // Foreground color
+                  onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
+                  // Background color
+                  primary: Theme.of(context).colorScheme.secondaryContainer,
                 ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'Dirección',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 20.0,
-                        color: Colors.teal.shade900),
-                  ),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'Teléfono',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 20.0,
-                        color: Colors.teal.shade900),
-                  ),
+                onPressed: onPressed,
+                child: const Text(
+                  'Guardar',
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 20.0,
+                      color: Color(0xFF00DCA8)),
                 ),
               ),
             ],
