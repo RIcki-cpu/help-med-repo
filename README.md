@@ -7,9 +7,7 @@ This proyect is the development of mobile android app for the course: 'Human-Com
 ##Guide installation
 1. - Install flutter, git and visual studio
 2. - Install virtual mobile device
-3. - Check
-
-This project is a starting point of a dic**
+3. - Test and get fun
 
 A few resources to get you started if this is your first Flutter project:
 
